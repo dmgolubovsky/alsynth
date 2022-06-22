@@ -1,0 +1,11 @@
+[Unit]
+Description=Symlink the provided dotghci file to the root home directory
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/bin/ln -sf /usr/lib/alsynth/haskell/dotghci /root/.ghci
+ExecStart=/usr/bin/chmod go-w /root/.ghci
+
+[Install]
+WantedBy=basic.target

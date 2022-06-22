@@ -1,0 +1,10 @@
+[Unit]
+Description=Cleanup the X authority file in the root home directory
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/bin/rm /root/.Xauthority
+
+[Install]
+WantedBy=basic.target

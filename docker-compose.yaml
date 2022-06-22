@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+        alsynth:
+                build: .
+                tmpfs:
+                        - /tmp
+                        - /run
+                        - /run/lock
+                volumes:
+                        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+                        - /etc/timezone:/etc/timezone:ro
+                        - alsynth_home:/root:rw
+                        - ${HOME}/.asoundrc:/root/.asoundrc:ro
+                        - ${ALSYNTHCONF:-/dev/null}:/etc/environment.d/99-alsynth.conf:ro
+                        - ${ALSYNTHCONF:-/dev/null}:/etc/bash.bashrc:ro
+                environment:
+                        - container=docker
+                        - QT_X11_NO_MITSHM=1
+                        - TZ=EST5EDT
+                hostname: alsynth
+                container_name: alsynth
+                ipc: host
+                network_mode: host
+                stop_signal: SIGRTMIN+3
+                ulimits:
+                        memlock: 400000000
+                        rtprio: 90
+                devices:
+                        - /dev/snd
+                        - /dev/dri
+                tty: true
+                security_opt: 
+                        - "apparmor:unconfined"
+                command: /bin/systemd
+volumes:
+        alsynth_home:
+
+

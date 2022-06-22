@@ -1,0 +1,6 @@
+-- The .ghci file for ALSYNTH
+
+-- Path to the ALSYNTH Haskell modules
+
+:set -i/usr/lib/alsynth/haskell
+
