@@ -1,6 +1,27 @@
 version: "3.7"
 
 services:
+         patchage:
+                build: ./patchage
+                volumes:
+                        - ${HOME}/.asoundrc:/root/.asoundrc:ro
+                        - /etc/timezone:/etc/timezone:ro
+                        - /tmp/.X11-unix/:/tmp/.X11-unix
+                        - $XAUTHORITY:/root/.Xauthority:rw
+                environment:
+                        - container=docker
+                        - QT_X11_NO_MITSHM=1
+                        - TZ=EST5EDT
+                        - DISPLAY
+                ipc: host
+                network_mode: host
+                stop_signal: SIGRTMIN+3
+                ulimits:
+                        memlock: 400000000
+                        rtprio: 90
+                devices:
+                        - /dev/snd
+                        - /dev/dri
          zynbare:
                 build: ./zynbare
                 volumes:
